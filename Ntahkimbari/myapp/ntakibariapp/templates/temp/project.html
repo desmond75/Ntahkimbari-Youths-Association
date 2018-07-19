@@ -1,0 +1,26 @@
+{% extends 'temp/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+<div class="container" style="margin-bottom:80px">
+	<div class="row">
+		<div class="col-md-6">
+			{% if projects %}
+			{% for project in projects %}
+			<p>
+			 	<span class="badge badge-pill badge-danger" style="margin-top:40px">Project Title</span>
+			 	<h4 style="">{{project.title}}<hr></h4>
+			 </p>
+			{% if project.photo %}
+			<p><img src="{{ project.photo.url }}" style="width:400px; margin-left:40px" class="rounded"></p>
+			{% endif %}
+			<span class="badge badge-pill badge-success" style="margin-bottom:20px">{{on_going}}</span>
+			<p><span class="badge badge-pill badge-danger">Project Description </span></p>
+			<p class="card" style="padding:6px 6px;">{{project.description}}</p>
+			{% endfor %}
+			{% else %}
+			<center><p><span class="badge badge-pill badge-danger">No projects </span></p></center>
+			{% endif %}
+	    </div>
+	</div>
+</div>
+{% endblock %}

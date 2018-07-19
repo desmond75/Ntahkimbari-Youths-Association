@@ -1,0 +1,48 @@
+{% extends 'temp/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+{% load static %}
+<div class="container" style="margin-bottom:90px">
+	<p>{{title}}</p>
+	<p>Total number of events {{total_number}}</p>
+	<div class="row">
+	     {% if galleries %}
+		 {% for gallery in galleries%}
+		<div class="col-md-3" style="margin-top:6px;">
+			<div class="card-deck">
+				<div class="card">
+					<img class="card-img-top" {% if gallery.photo %} src="{{gallery.photo.url}}" {% else %} src="{% static 'temp/img/df.png'%}" {% endif %}
+					alt="{{gallery.first_name}}" style="">
+					<div class="card-body">
+						<h5 class="card-title">{{gallery.title}}</h5>
+						<p class="card-text"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	   {% endfor %}
+	   <div class="pagination" style="margin-top:40px">
+			<span class="step-links">
+				{% if galleries.has_previous %}
+				<a href="?page=1"><button class="btn btn-success">first</button></a>
+				<a href="?page={{ galleries.previous_page_number }}">
+					<button class="btn btn-success">previous</button>
+				</a>
+				{% endif %}
+				<span class="current">
+					Page {{ galleries.number }} of {{ galleries.paginator.num_pages }}.
+				</span>
+				{% if galleries.has_next %}
+				<a href="?page={{ galleries.next_page_number }}">
+					<button class="btn btn-success">Next</button>
+				</a>
+				<a href="?page={{ galleries.paginator.num_pages }}"><button class="btn btn-success">last</button></a>
+				{% endif %}
+			</span>
+		</div>
+	   {% else %}
+	   	<center><p><span class="badge badge-pill badge-danger">No galleries </span></p></center>
+	   {% endif %}
+	</div>
+</div>
+{% endblock %}

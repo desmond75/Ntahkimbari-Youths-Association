@@ -1,0 +1,32 @@
+{% extends 'temp/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+<style type="text/css">
+    .formStyle{
+		border-color:#968;
+		border-radius:6px;
+	}
+</style>
+<div class="container">
+	<h3 id="title"><span class="badge badge-pill  badge-danger">{{title}}</span></h3><br>
+	<form action="{% url 'ntakimbari:register' %}" method="post">
+		{% csrf_token %}
+		{% for field in form %}
+		 {{field.label_tag}}
+		 <p>{{field}}<br>{{field.help_text}}</p>
+		 {% for error in field.errors %}
+		   {% if error %}
+		   <p class="alert alert-danger alert-dismissible fade show" role="alert">
+		   	   {{error}}
+		   	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		      </button> 
+		   </p>
+		   {% endif %}
+		 {% endfor %}
+		{% endfor %}
+		<input type="submit" name="" value="Register" class="btn btn-sm btn-danger">
+	</form>
+	<p style="margin-bottom:90px">Already have an account? <a href="{% url 'ntakimbari:_login' %}">Login</a></p>
+</div>
+{% endblock %}

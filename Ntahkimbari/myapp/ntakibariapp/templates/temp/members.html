@@ -1,0 +1,44 @@
+{% extends 'temp/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+{% load static %}
+<div class="container" style="margin-bottom:120px">
+	<div class="row">
+		{% if members %}
+		 {% for member in members %}
+		<div class="col-md-3" style="margin-top:6px;">
+			<div class="card-deck">
+				<div class="card">
+					<img class="card-img-top" {% if member.photo %} src="{{member.photo.url}}" {% else %} src="{% static 'temp/img/df.png'%}" {% endif %}
+					alt="{{member.first_name}}" style="">
+					<div class="card-body">
+						<h5 class="card-title">{{member.first_name}} {{member.last_name}} </h5>
+						<p class="card-text">nams sos</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		 {% endfor %}
+		 <div class="pagination" style="margin-top:40px">
+			<span class="step-links">
+				{% if members.has_previous %}
+				<a href="?page=1"><button class="btn btn-success">first</button></a>
+				<a href="?page={{ members.previous_page_number }}">
+					<button class="btn btn-success">previous</button>
+				</a>
+				{% endif %}
+				<span class="current">
+					Page {{ members.number }} of {{ members.paginator.num_pages }}.
+				</span>
+				{% if members.has_next %}
+				<a href="?page={{ members.next_page_number }}">
+					<button class="btn btn-success">Next</button>
+				</a>
+				<a href="?page={{ members.paginator.num_pages }}"><button class="btn btn-success">last</button></a>
+				{% endif %}
+			</span>
+		</div>
+		{% endif %}
+	</div>	
+</div>
+{% endblock %}

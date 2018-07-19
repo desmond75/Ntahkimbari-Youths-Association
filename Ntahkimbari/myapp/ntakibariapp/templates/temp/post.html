@@ -1,0 +1,36 @@
+{% extends 'temp/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+{% load static %}
+<div class="container" style="margin-bottom:80px">
+	<div class="row">
+		<div class="col-md-6">
+			{% if post.photo %}
+			<p><img src="{{ post.photo.url }}" style="width:400px;margin-left:40px" class="rounded"></p>
+			{% else %}
+			{# if no photo show this default#}
+			<p><img src="{% static 'temp/img/b.jpg' %}" style="width:200px; margin-left:40px" class="rounded"></p>
+			{% endif %}
+			<h4 style="padding-bottom:9px">{{post.title}}[{{post.tag}}]<hr></h4>
+			<p>{{post.description}}</p>
+	    </div>
+	    <div class="col-md-2"></div>
+	    <div class="col-md-4" style="margin-top:30px">
+	    	<p><span class="badge badge-pill badge-danger">Related {{post.tag|title}} </span></p>
+	    	<span class="card" style="padding:9px">
+		    	{% if related_post %}
+		    	{% for post in related_post %}
+		    	 <ul>
+		    	 	<li style="list-style-type:circle;">
+		    	 		<a href="{% url 'ntakimbari:post' post.id %}">{{post}}</a>
+		    	 	</li>
+		    	 </ul>
+		    	{% endfor %}
+		    	{% else %}
+		    	<p>No other funs are available</p>
+		    	{% endif %}
+		    </span>
+	    </div>
+	</div>
+</div>
+{% endblock %}

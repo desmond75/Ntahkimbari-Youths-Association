@@ -1,0 +1,79 @@
+{% extends 'temp/base.html' %}
+{% block title %}dashboard{% endblock %}
+{% block body %}
+<div class="container" style="">
+	<h3 style="font-family:sans-serif;">
+		<b>Welcome, </b>
+		<span class="badge badge-success">
+			<span class="text-light"> {{user.first_name}}</span>
+		</span>
+	</h3>
+	<div class="row" style="margin-top:20px">
+		<div class="col-md-3">
+			<div class="card jumbotron">
+				<h5 class="card-title" style="margin-left:13px">
+					{% if user.photo %}
+					<span class="badge badge-dark"><b>Update profile</b></span>
+					{% else %}
+					<span class="badge badge-dark"><b>Upload profile</b></span>
+					{% endif %}
+				</h5>
+				<div class="card-body">
+					<form action="{% url 'ntakimbari:upload' user.id %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{form}}
+						<p class="card-text">
+							<small class="text-muted">
+								<input type="submit" value="Upload" style="margin-top:9px" class="btn btn-sm btn-primary">
+							</small>
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			{% for post in all_post %}
+			{% if post.tag == 'gallery' %}
+		    <span class="badge badge-warning"><p>{{post.tag}}</p></span><br>
+			{% elif post.tag == 'fun' %}
+			<span class="badge badge-danger"><p>{{post.tag}}</p></span><br>
+			{% else %}	
+			<span class="badge badge-success"><p>{{post.tag}}</p></span><br>
+			{% endif %}		
+			{{post.post_date}}
+			<h5>{{post.title}}</h5>
+			{% if post.photo %}
+			<p><img src="{{post.photo.url}}" class="img-thumbnail" style="width:500px"></p>
+			{% endif %}
+			<p>{{post.description}}</p><hr>
+			{% endfor %}
+			<div class="pagination" style="margin-top:9px; margin-bottom:20px">
+			<span class="step-links">
+				{% if all_post.has_previous %}
+				<a href="?page=1"><button class="btn btn-success">first</button></a>
+				<a href="?page={{ all_post.previous_page_number }}">
+					<button class="btn btn-success">previous</button>
+				</a>
+				{% endif %}
+				<span class="current">
+					Page {{ all_post.number }} of {{ all_post.paginator.num_pages }}.
+				</span>
+				{% if all_post.has_next %}
+				<a href="?page={{ all_post.next_page_number }}">
+					<button class="btn btn-success">Next</button>
+				</a>
+				<a href="?page={{ all_post.paginator.num_pages }}"><button class="btn btn-success">last</button></a>
+				{% endif %}
+			</span>
+		</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	function sayBool(what){
+		return what == 'h%llo';
+	}
+	var a = sayBool('hello');
+	document.write(a)
+</script>
+</div>
+{% endblock %}

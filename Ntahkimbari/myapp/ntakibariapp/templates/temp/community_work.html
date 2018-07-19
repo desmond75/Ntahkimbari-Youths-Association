@@ -1,0 +1,63 @@
+{% extends 'temp/base.html' %}
+{% load static %}
+{% block title %}community works{% endblock %}
+{% block body %}
+<div class="container" style="padding-bottom:30px">
+	<span class="badge badge-pill badge-dark" style="">Completed works: </span>
+	<b class="text-danger"> {{number_completed_works}}</b> <a href="">view all</a>
+	<center>
+		<p style="margin-top:20px;">
+			<img src="{% static 'temp/img/b.jpg' %}" style="width:130px; height:auto;">
+			<h3><span class="badge badge-pill badge-dark" style="background: #665D1E">{{title}}</span></h3>
+		</p>
+	</center>
+	<div class="row" style="padding-top:30px">
+		<div class="col-2"></div>
+		<div class="col-8" style="margin-bottom:40px">
+		   {% if works %}
+			{% for work in works %}
+			  <!--{% if work.image_of_area %}
+			  <p><span class="badge badge-pill badge-danger" style="font-size:20px">Image of working area:</span></p>
+			  <p><img src="{{work.image_of_area.url}}"  class="rounded" style="width:390px;"></p>
+			  {% endif %}-->
+			  <table class="table table-hover">
+			  	<thead>
+			  		<tr></tr>
+			  	</thead>
+				<tbody>
+					<tr>
+						<th scope="row"></th>
+						<td><span class="badge badge-pill badge-danger" style="font-size:20px">Where :</span></td>
+				        <td><b>{{work.where}}</b></td>
+				    </tr>
+				    <tr>
+				        <th scope="row"></th>
+				        <td><span class="badge badge-pill badge-danger" style="font-size:20px">Time :</span></td>
+				        <td><b>{{work.time}}</b></td>
+				    </tr>
+				    <tr>
+				        <th scope="row"></th>
+				        <td><span class="badge badge-pill badge-danger" style="font-size:20px">Date :</span></td>
+				        <td><b>{{work.date}}</b></td>
+				    </tr>
+				    <tr>
+				        <th scope="row"></th>
+				        <td><span class="badge badge-pill badge-danger" style="font-size:20px">Tools :</span></td>
+				        <td><b>{{work.tools}}</b></td>
+				    </tr>
+				    <tr>
+				        <th scope="row"></th>
+				        <td><span class="badge badge-pill badge-danger" style="font-size:20px">Work description :</span></td>
+				        <td>{{work.work_description}}</td>
+				    </tr>
+				  </tbody>
+				</table>
+			{% endfor %}
+		  {% else %}
+			<center> <h3><span class="badge badge-pill badge-danger" style="">No work for now</span></h3></center>
+		  {% endif %}
+		</div>
+		<div class="col-2"></div>
+   </div>
+</div>
+{% endblock %}
