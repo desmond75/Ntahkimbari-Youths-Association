@@ -1,4 +1,4 @@
-# Ntahkimbari-Youths-Association
+# Ntahkimbari-Youths-Association Python/Django
 
 # This is a web application build using Python and Django for my community 
 
