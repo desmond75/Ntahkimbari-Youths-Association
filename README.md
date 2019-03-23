@@ -10,3 +10,4 @@ where community member can create accounts.
 - Logout 
 - Password reset
 - Profile Photo upload  
+- More familiarity with django ORM and django tmplate tags 
